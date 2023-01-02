@@ -4,14 +4,11 @@ plugins {
 }
 
 android {
-    viewBinding{
-        enabled = true
-    }
-    namespace 'com.example.vacationstudy'
+    namespace 'com.example.ch6_view'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.vacationstudy"
+        applicationId "com.example.ch6_view"
         minSdk 33
         targetSdk 33
         versionCode 1
