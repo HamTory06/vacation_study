@@ -13,18 +13,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.example.vacationstudy.databinding.ActivityMainBinding
+
 import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val binding = ActivityMainBinding.inflate(layoutInflater) //binding은 findviewByid대신 사용하는것
+/*        val binding = ActivityMainBinding.inflate(layoutInflater) //binding은 findviewByid대신 사용하는것
         setContentView(binding.root)
         binding.button.setOnClickListener{ //button_id를 가진 button을 클릭하면 Log로 "button on Click"출력
             Log.d("tag","button on Click")
-        }
+        }*/
         /*val name = TextView(this).apply{ //람다식임 아님 말고
             typeface = Typeface.DEFAULT_BOLD //글자 폰트 설정
             text = "HamTory"
