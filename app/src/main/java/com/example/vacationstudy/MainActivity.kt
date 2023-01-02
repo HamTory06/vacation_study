@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 /*        val name = TextView(this) apply안쓰면 수신객체를 적어야됨
         name.typeface = Typeface.DEFAULT_BOLD
         name.text = "HamTory"*/
-        val image = ImageView(this).also{
+        val image = ImageView(this).also{ //also는 apply와 비슷하지만 also는 작업을 한뒤 return한다고 한다
             it.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.image)) //사진 가져오기
         }
         val address = TextView(this).apply{
