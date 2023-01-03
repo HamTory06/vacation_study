@@ -6,10 +6,17 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
+import android.widget.CompoundButton
 import androidx.activity.OnBackPressedCallback
 import com.example.ch6_view.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MyEventHandler : CompoundButton.OnCheckedChangeListener{ //별도의 클래스를 만들어서 사용할수도 있다
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        Log.d("CheckBox", "Check : ${isChecked}")
+    }
+}
+
+class MainActivity : AppCompatActivity(),CompoundButton.OnCheckedChangeListener {
     //전역 번수로 binding 객체 선언
     private var mbinding : ActivityMainBinding? = null
     //매번 null체크를 할 필요 없이 편의성을 위해 binding 변수 재 선언
@@ -19,12 +26,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.CheckBox.setOnCheckedChangeListener(this)
+        binding.CheckBox.setOnCheckedChangeListener(MyEventHandler())
+
         onBackPressedDispatcher.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 //뒤로가기 클릭 시 실행 시킬 코드
                 Log.d("뒤로가기","Back")
             }
         })
+//        binding.CheckBox.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener{ //object는 이벤트 핸들러
+//            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+//                Log.d("CheckBox","Check : ${isChecked}")
+//            }
+//        })
+        binding.CheckBox.setOnCheckedChangeListener { buttonView, isChecked ->  //람다식을 이용할수 있다
+            Log.d("CheckBox", "Check : ${isChecked}")
+        }
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) { //액티비티에서 인터페이스를 구현
+        Log.d("CheckBox", "Check : ${isChecked}")
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean { //MotionEvent는 터치의 종류와 발생 지점을 남긴다
