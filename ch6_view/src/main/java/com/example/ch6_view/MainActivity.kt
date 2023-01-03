@@ -10,10 +10,15 @@ import androidx.activity.OnBackPressedCallback
 import com.example.ch6_view.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    //전역 번수로 binding 객체 선언
+    private var mbinding : ActivityMainBinding? = null
+    //매번 null체크를 할 필요 없이 편의성을 위해 binding 변수 재 선언
+    private val binding get() = mbinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mbinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         onBackPressedDispatcher.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 //뒤로가기 클릭 시 실행 시킬 코드
@@ -59,5 +64,11 @@ class MainActivity : AppCompatActivity() {
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         Log.d("상태",keyCode.toString())
         return super.onKeyUp(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        //onDestroy에서 binding class 인스턴스 참조를 정리해주어야 됨
+        mbinding = null
+        super.onDestroy()
     }
 }
