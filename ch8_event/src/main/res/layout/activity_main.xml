@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="70dp">
         <Button
             android:id="@+id/startButton"
@@ -46,5 +46,17 @@
             android:layout_marginLeft="25dp"
             android:enabled="false"/>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:src="@drawable/gradient_box" />
+    <TextView
+        android:id="@+id/text"
+        android:textSize="@dimen/main_txt_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"/>
 
 </RelativeLayout>

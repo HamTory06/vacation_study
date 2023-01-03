@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Ch8_Event</string>
+    <string name="app_name">스톱워치</string>
+    <string name="name">HamTory</string>
+    <string name="txt_data1">Hello</string>
+    <string name="txt_data2">World</string>
 </resources>

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.KeyEvent
+import android.widget.ResourceCursorAdapter
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.example.ch8_event.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)// 액티비티에서 사용할 바인딩 클래스의 인스턴스 생성
         setContentView(binding.root)
-
+        binding.text.text = getString(R.string.txt_data1)//textid 를 가진 textview에 R.string.txt_data1를 넣는다.
+        binding.text.setTextColor(ResourcesCompat.getColor(resources, R.color.txt_color, null))
+        binding.text.text = resources.getDimension(R.dimen.main_txt_size).toString()
         binding.startButton.setOnClickListener { //시작 버튼을 클릭 했을때
             binding.chronometer.base = SystemClock.elapsedRealtime() + pauseTime
             binding.chronometer.start()
