@@ -36,7 +36,7 @@
             android:layout_marginLeft="25dp"
             android:enabled="false"/>
         <Button
-            android:id="@+id/reseetButton"
+            android:id="@+id/resetButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Reset"

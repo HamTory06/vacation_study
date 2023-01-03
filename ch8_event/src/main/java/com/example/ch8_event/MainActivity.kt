@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import android.view.KeyEvent
+import android.widget.Toast
 import com.example.ch8_event.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,19 +22,38 @@ class MainActivity : AppCompatActivity() {
         binding.startButton.setOnClickListener { //시작 버튼을 클릭 했을때
             binding.chronometer.base = SystemClock.elapsedRealtime() + pauseTime
             binding.chronometer.start()
-            binding.reseetButton.isEnabled = true //버튼 활성화
-            binding.stopButton.isEnabled = true //버튼 비활성화
+            binding.resetButton.isEnabled = false //버튼 비활성화
+            binding.stopButton.isEnabled = true //버튼 활성화
             binding.startButton.isEnabled = false//버튼 비활성화
         }
         binding.stopButton.setOnClickListener{
             pauseTime = binding.chronometer.base - SystemClock.elapsedRealtime() //elapsedRealtime는 시스템이 부팅된 이후 시간을 반환(절전 모드에서 지속)
             //Log.d("elapsedRealtime","${SystemClock.elapsedRealtime()}") //로그로 출력을 하니 너무 큰 수가 나온다 이해를 할수가 없다
             binding.chronometer.stop()
-            binding.reseetButton.isEnabled = false //버튼 활성화
+            binding.resetButton.isEnabled = true //버튼 활성화
             binding.stopButton.isEnabled = false //버튼 비활성화
-            binding.startButton.isEnabled = true //버튼 비활성화
+            binding.startButton.isEnabled = true //버튼 활성화
         }
+        binding.resetButton.setOnClickListener{ //리셋버튼 누르면
+            pauseTime = 0L //리셋버튼 누르면 0으로 초기화
+            binding.chronometer.base = SystemClock.elapsedRealtime()
+            binding.chronometer.stop()
+            binding.stopButton.isEnabled = false
+            binding.resetButton.isEnabled = false
+            binding.startButton.isEnabled = true
+        }
+    }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode === KeyEvent.KEYCODE_BACK){
+            if(System.currentTimeMillis() - initTime > 3000){ //System.currentTimeMillis() 현재 시간 구하는거
+                Toast.makeText(this,"종료하려면 한 번 더 누르세요"
+                ,Toast.LENGTH_SHORT).show()
+                initTime = System.currentTimeMillis()
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onDestroy() {
