@@ -43,6 +43,14 @@ class MainActivity : AppCompatActivity(),CompoundButton.OnCheckedChangeListener 
         binding.CheckBox.setOnCheckedChangeListener { buttonView, isChecked ->  //람다식을 이용할수 있다
             Log.d("CheckBox", "Check : ${isChecked}")
         }
+
+        binding.button.setOnClickListener{
+            Log.d("Click","클릭 이벤트")
+        }
+        binding.button.setOnLongClickListener{
+            Log.d("LongClick","롱클릭 이벤트")
+            true //true를 넣지 않으면 콜백 함수가 Boolean으로 설정 되어 있어서 오류가 발생한다
+        }
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) { //액티비티에서 인터페이스를 구현
