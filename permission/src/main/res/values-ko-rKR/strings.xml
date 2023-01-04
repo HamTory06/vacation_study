@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">권한</string>
+    <string name="permission">권한을 허용해주세요</string>
+</resources>

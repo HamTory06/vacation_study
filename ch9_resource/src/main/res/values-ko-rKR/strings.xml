@@ -11,4 +11,5 @@
     <string name="intro_more">더 알아보기</string>
     <string name="intro_button">설정</string>
     <string name="intro_delay">나중에 하기</string>
+    <string name="permission">권한 설정을 해주세요</string>
 </resources>

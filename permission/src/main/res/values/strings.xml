@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">permission</string>
+    <string name="permission">Please set permissions</string>
+</resources>
