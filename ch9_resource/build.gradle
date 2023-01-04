@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.ch9_resource"
-        minSdk 33
+        minSdk 21 //최소 버전을 21로 설정함 33버전의 API로 개발하지만 21버전 기기에서도 오류가 발생하지 않고 동작해야됨
         targetSdk 33
         versionCode 1
         versionName "1.0"
