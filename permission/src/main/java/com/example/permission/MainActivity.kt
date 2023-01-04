@@ -1,11 +1,15 @@
 package com.example.permission
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,6 +28,17 @@ class MainActivity : AppCompatActivity() {
         binding.toastButton.setOnClickListener {
             showToast()
         }
+        DatePickerDialog(this,object: DatePickerDialog.OnDateSetListener{
+            override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                Log.d("날짜","${year}년 ${month+1}월 ${dayOfMonth}일") //month값은 0~11까지 지정되있어서 0은 1월을 의미 한다 그래서 +1해주어야됨
+
+            }
+        },2023, 0, 4).show()
+        TimePickerDialog(this,object: TimePickerDialog.OnTimeSetListener{
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                Log.d("시간","time : ${hourOfDay} minute : ${minute}")
+            }
+        }, 15,0,false).show() //false면 12시간 true면 24시간
     }
 
     override fun onDestroy() {
@@ -63,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onToastShown() {
                     super.onToastShown()
-                    Log.d("Toast","Toast 보임")
+                    Log.d("Toast","Toast shown")
                 }
             }
         )
