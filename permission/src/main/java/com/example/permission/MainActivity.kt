@@ -21,6 +21,14 @@ class MainActivity : AppCompatActivity() {
         binding.cameraButton.setOnClickListener{
             checkPermission()
         }
+        binding.toastButton.setOnClickListener {
+            showToast()
+        }
+    }
+
+    override fun onDestroy() {
+        mbinding = null
+        super.onDestroy()
     }
     fun checkPermission(){
         val camerPermission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)//CAMERA권한 상태 가져오기
@@ -42,5 +50,22 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this,"카메라 기능 실행", Toast.LENGTH_SHORT).show()
         val intent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, 1)
+    }
+    fun showToast(){
+        val toast = Toast.makeText(this,"토스트 메시지",Toast.LENGTH_SHORT) //LENGTH_SHORT는 3초동안 LENGTH_LONG는 5초 동안 보여줌
+        toast.show()
+        toast.addCallback(
+            object : Toast.Callback(){
+                override fun onToastHidden() {
+                    super.onToastHidden()
+                    Log.d("Toast","Toast hidden")
+                }
+
+                override fun onToastShown() {
+                    super.onToastShown()
+                    Log.d("Toast","Toast 보임")
+                }
+            }
+        )
     }
 }
