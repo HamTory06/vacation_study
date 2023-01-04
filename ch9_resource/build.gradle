@@ -4,6 +4,10 @@ plugins {
 }
 
 android {
+
+    viewBinding{
+        enabled = true
+    }
     namespace 'com.example.ch9_resource'
     compileSdk 33
 
