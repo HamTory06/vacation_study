@@ -54,5 +54,17 @@
             android:layout_margin="10dp"
             android:text="알림 창 checkbox"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/alarm_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="알림 창 radio button"/>
+
+    </LinearLayout>
 
 </LinearLayout>
