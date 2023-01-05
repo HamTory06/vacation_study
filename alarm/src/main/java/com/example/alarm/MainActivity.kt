@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         builder.setWhen(System.currentTimeMillis())//알람시간 miliSecond 단위로 넣어주면(currentTimeMillis()) 내부적으로 자동으로 파싱
         builder.setContentTitle("Content Title")
         builder.setContentTitle("Content Massage")
-        manager.notify(11,builder.build())
+        builder.setAutoCancel(false)//false 알람을 터치해도 알림은 사라지지 않는다
+        builder.setOngoing(true) //사용자가 알람을 스와이프해도 사라지지 않는다 알림이 사라지지 않게 하는 코드를 작성하면 결국 cancel()함수로 취소해야된다
+        manager.notify(11,builder.build()) //builder.build()함수가 Notification객체를 만들고 알람이 발생한다 첫 번째 매개변숫값은 알림을 식별하는 데 사용하는 숫자 개발자가 임의로 저장 이 식별값은 사용자 폰에 발생한 알림을 코드에서 취소할 때 사용
+        manager.cancel(11)
+        //알람 터치 이벤트는 onTouchEvent()함수로 처리 할수 없다
     }
 }
