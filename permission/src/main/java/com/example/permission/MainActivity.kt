@@ -1,5 +1,6 @@
 package com.example.permission
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -28,6 +29,17 @@ class MainActivity : AppCompatActivity() {
         binding.toastButton.setOnClickListener {
             showToast()
         }
+        binding.alarmButton.setOnClickListener {
+            AlertDialog.Builder(this).run{
+                setTitle("test dialog")
+                setIcon(android.R.drawable.ic_dialog_info)
+                setMessage("알림 창 테스트")
+                setPositiveButton("확인",Log.d("알림창_확인",))//알림창에서 확인 버튼 느낌
+                setNegativeButton("취소",null)//알림창에서 취소 버튼
+                setNeutralButton("MORE",null)//알림창에서 MORE 버튼 자세히 버튼인거같음 잘 모르겠습;;
+                show()
+            }
+        }
         DatePickerDialog(this,object: DatePickerDialog.OnDateSetListener{
             override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                 Log.d("날짜","${year}년 ${month+1}월 ${dayOfMonth}일") //month값은 0~11까지 지정되있어서 0은 1월을 의미 한다 그래서 +1해주어야됨
@@ -45,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         mbinding = null
         super.onDestroy()
     }
+
     fun checkPermission(){
         val camerPermission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)//CAMERA권한 상태 가져오기
         Log.d("카메라 권한",camerPermission.toString())
