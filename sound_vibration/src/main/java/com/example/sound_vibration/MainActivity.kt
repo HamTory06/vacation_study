@@ -29,11 +29,14 @@ class MainActivity : AppCompatActivity() {
         }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){//api버전이 26이상일 경우
             vibrator.vibrate(
-                VibrationEffect.createOneShot(500,
+                VibrationEffect.createOneShot(500, //기본 세기로 진동
                 VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(500,1000,500,2000),
+                intArrayOf(0,50,0,200),-1))
         }
         else{ //api버전이 26미만일 경우
             vibrator.vibrate(500)
+            vibrator.vibrate(longArrayOf(500,1000,500,2000),-1)
         }
 
         binding.soundButton.setOnClickListener {
