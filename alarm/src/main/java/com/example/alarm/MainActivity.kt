@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val acticon
+        val actionIntent = Intent(this, Activity::class.java)
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val builder: NotificationCompat.Builder
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
          builder.build()//함수가 Notification객체를 만들고 알람이 발생한다 첫 번째 매개변숫값은 알림을 식별하는 데 사용하는 숫자 개발자가 임의로 저장 이 식별값은 사용자 폰에 발생한 알림을 코드에서 취소할 때 사용
         manager.cancel(11)//알림 삭제
+
         //알람 터치 이벤트는 onTouchEvent()함수로 처리 할수 없다 이ㅓㄹ수가, 그래서 이벤트가 발생하면 Notification 객체에 등록된 이벤트 처리 내용을 시스템이 실행하는 구조로 처리
         //시스템에 인텐트를 실행 해달라고 시스템에 의뢰해야 한다 이러한 의뢰는 PendingIntent클래스를 이용해야한다
         //PendingIntent클래스는 컴포넌트별로 실행을 의뢰하는 함수를 제공한다
@@ -77,6 +78,12 @@ class MainActivity : AppCompatActivity() {
             PendingIntent.getActivity(this, 10 , intent,
                 PendingIntent.FLAG_IMMUTABLE)
         builder.setContentIntent(pendingIntent)
-
+        builder.addAction(
+            NotificationCompat.Action.Builder(
+                android.R.drawable.stat_notify_more,
+                "Action",
+                pendingIntent
+            ).build()
+        )
     }
 }
