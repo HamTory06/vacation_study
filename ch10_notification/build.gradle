@@ -4,14 +4,15 @@ plugins {
 }
 
 android {
-    namespace 'com.example.alarm'
+    namespace 'com.example.ch10_notification'
     compileSdk 33
+
     viewBinding{
         enabled = true
     }
 
     defaultConfig {
-        applicationId "com.example.alarm"
+        applicationId "com.example.ch10_notification"
         minSdk 33
         targetSdk 33
         versionCode 1
