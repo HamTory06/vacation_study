@@ -7,6 +7,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.RingtoneManager
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val bigPicture = BitmapFactory.decodeResource(resources,R.drawable.send) //사진 저장 Bitmap
+        val bigStyle = NotificationCompat.BigPictureStyle()
+
         val actionIntent =
             Intent(this, Activity::class.java)//class뒤에 .java를 추가하는 이유는 자바로 작성된 API를 코틀린에서 이용하기 때문
         val KEY_TEXT_REPLY = "key_text_reply"
@@ -89,6 +94,8 @@ class MainActivity : AppCompatActivity() {
         builder.setContentTitle("Content Title")
         builder.setContentText("Content Massage")
         builder.setAutoCancel(true)//알림을 탭하면 자동으로 알림을 삭제
+        bigStyle.bigPicture(bigPicture)//잘 모르겠습
+        builder.setStyle(bigStyle)//사진 띄우기
         //builder.setAutoCancel(false)//false 알람을 터치해도 알림은 사라지지 않는다
         //builder.setOngoing(true) //사용자가 알람을 스와이프해도 사라지지 않는다 알림이 사라지지 않게 하는 코드를 작성하면 결국 cancel()함수로 취소해야된다
         builder.addAction(
@@ -105,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                 replyPendingIntent
             ).addRemoteInput(remoteInput).build()
         )
+
         binding.alarmButton.setOnClickListener {
             //val status = ContextCompat.checkSelfPermission(this,"android.permission.POST_NOTIFICATIONS")
             requserPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS")//권한이 있는지 확인
