@@ -79,27 +79,40 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this).run {
                 setTitle("radio button")
                 setIcon(android.R.drawable.ic_dialog_info)
-                setSingleChoiceItems(items,1
+                setSingleChoiceItems(
+                    items, 1
                 ) { dialog, which ->
-                    Log.d("알림_radio button","${items[which]}이 선택되었습니다")
+                    Log.d("알림_radio button", "${items[which]}이 선택되었습니다")
                 }
-                setPositiveButton("닫기",null)//닫기 버튼
+                setPositiveButton("닫기", null)//닫기 버튼
                 setCancelable(true) //사용자가 뒤로가기 버튼을 눌렀을때 창이 닫아지는지 true면 닫이고 false면 안닫인다
                 show()
             }.setCanceledOnTouchOutside(true) //사용자가 알림창 바깥 영역을 터치 했을 때 true면 닫이고 false면 안닫인다
         }
-        DatePickerDialog(this,
-            { view, year, month, dayOfMonth ->
-                Log.d("날짜","${year}년 ${month+1}월 ${dayOfMonth}일") //month값은 0~11까지 지정되있어서 0은 1월을 의미 한다 그래서 +1해주어야됨
-            },2023, 0, 4).show()
-        TimePickerDialog(this,
-            { view, hourOfDay, minute -> Log.d("시간","time : ${hourOfDay} minute : ${minute}") }, 15,0,false).show() //false면 12시간 true면 24시간
+
+
     }
+
 
     override fun onDestroy() {
         mbinding = null
         super.onDestroy()
     }
+
+    fun DatePickerDialog(){
+        DatePickerDialog(this,
+            { view, year, month, dayOfMonth ->
+                Log.d("날짜","${year}년 ${month+1}월 ${dayOfMonth}일") //month값은 0~11까지 지정되있어서 0은 1월을 의미 한다 그래서 +1해주어야됨
+            },2023, 0, 4).show()
+    }
+
+    fun TimePickerDialog(){
+        TimePickerDialog(this,
+            { view, hourOfDay, minute ->
+                Log.d("시간","time : ${hourOfDay} minute : ${minute}")
+            }, 15,0,false).show() //false면 12시간 true면 24시간
+    }
+
 
     fun checkPermission(){
         val camerPermission = ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)//CAMERA권한 상태 가져오기
