@@ -29,32 +29,29 @@ class MainActivity : AppCompatActivity() {
         val permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ){
-            if(it.all{ permission -> permission.value == true}){
-                //noti()
+            if(it.all{ permission -> permission.value == true}){//permission이 허용된 겅우
+                noti()//알림함수
             }
             else{
-                Toast.makeText(this,"permission denied...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"permission denied...", Toast.LENGTH_SHORT).show()//Toast메시지로 3초간 "permission denied" 띄움
             }
         }
-        binding.notificationButton.setOnClickListener {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                if(ContextCompat.checkSelfPermission(
-                        this,
-                        "android.permission.POST_NOTIFICATIONS"
-                    ) == PackageManager.PERMISSION_GRANTED
-                ){
-                    noti()
+        binding.notificationButton.setOnClickListener { //버튼 누르면
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){//api버전 33이상
+                if(ContextCompat.checkSelfPermission(this, "android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED//알림permission 허용되었을 경우 참
+                ){//android.permission.POST_NOTIFICATIONS이 허용되었을때
+                    noti()//알림함수
                 }
-                else{
-                    permissionLauncher.launch(
+                else{//아니면
+                    permissionLauncher.launch(//이해 불가 (코루틴) 일단 실행하고 잊어버리는 형태의 코루틴(???뭔 소린지;;) 블록내 결과값은 return(반환)하지 않는다
                         arrayOf(
-                            "android.permission.POST_NOTIFICATIONS"
+                            "android.permission.POST_NOTIFICATIONS" //아무리 봐도 이해를 못하겠다 배열에다 "android.permission.POST_NOTIFICATIONS"이거를 넣는다는게;; 어디 변수에 이 배열이 들어가는지도 모르겠다 저장이 된건지도 모르겠고
                         )
                     )
                 }
             }
-            else{
-                noti()
+            else{//api버전이 33미만일 경우
+                noti()//함수 실행
             }
         }
     }
@@ -66,11 +63,11 @@ class MainActivity : AppCompatActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //api 26버전 이상
             val channelId = "one-channel"
             val channelName = "My Channel One"
-            val channel = NotificationChannel(
+            val channel = NotificationChannel(//채널 생성
                 channelId,
                 channelName,
                 NotificationManager.IMPORTANCE_DEFAULT//기본 알림 중요도(?) IMPORTANCE_DEFAULT이거는 모든 곳에 표시되고 소음이 발생하지만 시각적으로 방해되지 않는다
-            ).apply {
+            ).apply {//channel생략해도됨
                 description = "My Channel One Description"
                 setShowBadge(true) //이 채널에 게시된 알림이 앱아이콘에 표시될 수 있는지 여부
                 val uri : Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)//소리 Uri로 받아오기
@@ -78,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)//사용자 인터페이스
                     .setUsage(AudioAttributes.USAGE_ALARM)//알람소리
                     .build()
-                setSound(uri, audioAttributes)
+                setSound(uri, audioAttributes)//소리 set
                 enableVibration(true)
             }
             //채널을 NotificarionManager에 등록
@@ -92,17 +89,17 @@ class MainActivity : AppCompatActivity() {
 
         //알림 기본 정보
         builder.run {
-            setSmallIcon(R.drawable.small)
-            setWhen(System.currentTimeMillis())
-            setContentTitle("익명의 ")
-            setContentText("ㅎㅇ")
-            setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.big))
+            setSmallIcon(R.drawable.small)//알림 아이콘 카톡Icon
+            setWhen(System.currentTimeMillis())//알림이 언제 왔는지 알려줌(ex 1분전
+            setContentTitle("익명의 ")//알림 Title(제목)
+            setContentText("ㅎㅇ")//알림 text(내용)
+            setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.big))//알림 사진
         }
 
         val KEY_TEXT_REPLY = "key_text_reply"
         var repltLabel = "답장"
         var remoteInput: RemoteInput = RemoteInput.Builder(KEY_TEXT_REPLY).run {
-            setLabel(repltLabel)
+            setLabel(repltLabel)//editText에서 hint같은 느낌 원격 입력에서
             build()
         }
         val replyIntent = Intent(this,ReplyReceiver::class.java)
@@ -110,14 +107,14 @@ class MainActivity : AppCompatActivity() {
             this,30,replyIntent,PendingIntent.FLAG_MUTABLE
         )
 
-        builder.addAction(
+        builder.addAction( //Action 추가
             NotificationCompat.Action.Builder(
-                R.drawable.send,
-                "답장",
+                R.drawable.send, //원격 입력 전송 아이콘
+                "답장",//Action버튼
                 replyPendingIntent
-            ).addRemoteInput(remoteInput).build()
+            ).addRemoteInput(remoteInput).build()//addRemoteInput(remoteInput) 원격 입력
         )
 
-        manager.notify(11,builder.build())
+        manager.notify(11,builder.build())//알림 갱신
     }
 }
