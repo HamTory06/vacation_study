@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationCompat
@@ -26,10 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val permissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ){
-            if(it.all{ permission -> permission.value == true}){//permission이 허용된 겅우
+        val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
+            if(it.all{ permission -> permission.value }){//permission이 허용된 겅우
                 noti()//알림함수
             }
             else{
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             val channel = NotificationChannel(//채널 생성
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_DEFAULT//기본 알림 중요도(?) IMPORTANCE_DEFAULT이거는 모든 곳에 표시되고 소음이 발생하지만 시각적으로 방해되지 않는다
+                NotificationManager.IMPORTANCE_DEFAULT//기본 알림 중요도(?) IMPORTANCE_DEFAULT 이거는 모든 곳에 표시되고 소음이 발생하지만 시각적으로 방해되지 않는다
             ).apply {//channel생략해도됨
                 description = "My Channel One Description"
                 setShowBadge(true) //이 채널에 게시된 알림이 앱아이콘에 표시될 수 있는지 여부
@@ -76,15 +75,15 @@ class MainActivity : AppCompatActivity() {
                     .setUsage(AudioAttributes.USAGE_ALARM)//알람소리
                     .build()
                 setSound(uri, audioAttributes)//소리 set
-                enableVibration(true)
+                enableVibration(true)//진동 여부
             }
             //채널을 NotificarionManager에 등록
             manager.createNotificationChannel(channel)
             //채널을 이용하여 builder 생성
             builder = NotificationCompat.Builder(this,channelId)
         }
-        else{ //api버전 26미만
-            builder = NotificationCompat.Builder(this)
+        else{ //api버전 26미만에는 channe개념이 없다
+            builder = NotificationCompat.Builder(this) //만약에 api버전 26이상 일때 Builder(context)만 적으면 Notification을 띄어도 띄어지지 않는다
         }
 
         //알림 기본 정보
@@ -93,25 +92,26 @@ class MainActivity : AppCompatActivity() {
             setWhen(System.currentTimeMillis())//알림이 언제 왔는지 알려줌(ex 1분전
             setContentTitle("익명의 ")//알림 Title(제목)
             setContentText("ㅎㅇ")//알림 text(내용)
-            setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.big))//알림 사진
+            setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.big))//알림 사진(상대방 프로필 사진, 채팅방 사진)
         }
 
-        val KEY_TEXT_REPLY = "key_text_reply"
+        val KEY_TEXT_REPLY = "key_text_reply" //remoteInput보내는 메시지 key값
         var repltLabel = "답장"
         var remoteInput: RemoteInput = RemoteInput.Builder(KEY_TEXT_REPLY).run {
-            setLabel(repltLabel)//editText에서 hint같은 느낌 원격 입력에서
+            setLabel(repltLabel)// 원격 입력에서 editText에서 hint같은 느낌
             build()
         }
         val replyIntent = Intent(this,ReplyReceiver::class.java)
-        val replyPendingIntent = PendingIntent.getBroadcast(
-            this,30,replyIntent,PendingIntent.FLAG_MUTABLE
+        val replyPendingIntent = PendingIntent.getBroadcast( //PendingIntent는 우리가 준비한 Intent를 실행 시켜야하지만 실행시키는 시점은 어떠한 이벤트가 일어났을 떄 실행시켜야하기 때문에 잠시 준비하는 시간을 주는
+
+            this,30,replyIntent,PendingIntent.FLAG_MUTABLE //4번쨰 매개변수는 똑같은 알림이 발생했을 때 어떻게 처리해야 하는지를 나타냄
         )
 
         builder.addAction( //Action 추가
             NotificationCompat.Action.Builder(
                 R.drawable.send, //원격 입력 전송 아이콘
                 "답장",//Action버튼
-                replyPendingIntent
+                replyPendingIntent//Intent등록
             ).addRemoteInput(remoteInput).build()//addRemoteInput(remoteInput) 원격 입력
         )
 

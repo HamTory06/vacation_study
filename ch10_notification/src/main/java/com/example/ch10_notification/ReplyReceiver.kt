@@ -12,7 +12,7 @@ class ReplyReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
-        val replyTxt = RemoteInput.getResultsFromIntent(intent)
+        val replyTxt = RemoteInput.getResultsFromIntent(intent)//이 변수를 통하여
             ?.getCharSequence("key_text_reply")
         Log.d("tag","reply : ${replyTxt}")
         //알림 취소
