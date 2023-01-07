@@ -9,8 +9,7 @@
         android:theme="@style/Theme.VacationStudy">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:parentActivityName=".MainActivity">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
