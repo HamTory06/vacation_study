@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             transaction.add(R.id.fragment_content,BlankFragment()) //BlankFragment를 가져와서 fragment_content id를 가진 레이아웃 클래스에 넣는다(그런 느낌)
             transaction.commit() //commmit을 함으로써 화면에 적용시킨다
+            transaction.addToBackStack(null)
         }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){ //이렇게 API레벨 호환성을 고려한 반면
 //            binding.TextView.lineHeight = 50
