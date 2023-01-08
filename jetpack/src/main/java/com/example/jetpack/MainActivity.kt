@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.Toolbar)
+        //setSupportActionBar(binding.Toolbar)
         val fragmentManager: FragmentManager = supportFragmentManager
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = BlankFragment()
-        transaction.add(R.id.fragment_content, fragment)
-        transaction.commit()
+        binding.button.setOnClickListener {
+            transaction.add(R.id.fragment_content,BlankFragment()) //BlankFragment를 가져와서 fragment_content id를 가진 레이아웃 클래스에 넣는다(그런 느낌)
+            transaction.commit() //commmit을 함으로써 화면에 적용시킨다
+        }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){ //이렇게 API레벨 호환성을 고려한 반면
 //            binding.TextView.lineHeight = 50
 //        }
@@ -41,47 +42,47 @@ class MainActivity : AppCompatActivity() {
         //AppcomPat(TextView,ImageView,EditText,Button)등을 이용하면 호환성문제를 해결해준다
     }
 
-    override fun onSupportNavigateUp(): Boolean { //업 버튼을 틀릭 시 자동으로 호출되는 함수 재정의(이 함수를 사용하면 onBackPressed 어노케이션된 함수를 사용하게 되어 사용할수 없다)
-        Log.d("상태","뒤로가기 버튼 클릭")
-        onBackPressed()//어노케이션이 뜬다 뜨는 이유가 예전에는 뒤로가기 버튼으로 뒤로갔지만 요즘은 제스쳐를 이용하여 뒤로가기를 사용하기 때문인데 나는 제스쳐를 이용하지 않기 때문에 onBackPrssed()를 사용해도 상관 없다
-        return super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean { //업 버튼을 틀릭 시 자동으로 호출되는 함수 재정의(이 함수를 사용하면 onBackPressed 어노케이션된 함수를 사용하게 되어 사용할수 없다)
+//        Log.d("상태","뒤로가기 버튼 클릭")
+//        onBackPressed()//어노케이션이 뜬다 뜨는 이유가 예전에는 뒤로가기 버튼으로 뒤로갔지만 요즘은 제스쳐를 이용하여 뒤로가기를 사용하기 때문인데 나는 제스쳐를 이용하지 않기 때문에 onBackPrssed()를 사용해도 상관 없다
+//        return super.onSupportNavigateUp()
+//    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean { //메뉴 구성 함수
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_main, menu)
-        val menuItemsearchView = menu?.findItem(R.id.menu_search)
-        val searchView = menuItemsearchView?.actionView as SearchView
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean { //메뉴 구성 함수
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.menu_main, menu)
+//        val menuItemsearchView = menu?.findItem(R.id.menu_search)
+//        val searchView = menuItemsearchView?.actionView as SearchView
+//        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                Log.d("상태",newText!!) // 검색어 변경할떄 마다 실행됨
+//                return true
+//            }
+//
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                // 키보드의 검색 버튼을 클릭한 순간의 이벤트(검색어 출력)
+//                Log.d("상태",query!!)
+//                return true
+//            }
+//        })
+//        for(i in 1..10){
+//            val menuItem: MenuItem? = menu?.add(0,i,0,"meun${i}") //메뉴 10개 만들기
+//        }
+//        return super.onCreateOptionsMenu(menu)
+//    }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d("상태",newText!!) // 검색어 변경할떄 마다 실행됨
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // 키보드의 검색 버튼을 클릭한 순간의 이벤트(검색어 출력)
-                Log.d("상태",query!!)
-                return true
-            }
-        })
-        for(i in 1..10){
-            val menuItem: MenuItem? = menu?.add(0,i,0,"meun${i}") //메뉴 10개 만들기
-        }
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when(item.itemId){ //메뉴 선택 시 이벤트 처리
-        1 -> {
-            Log.d("상태","meun1")
-            true
-        }
-        2 -> {
-            Log.d("상태","meun2")
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when(item.itemId){ //메뉴 선택 시 이벤트 처리
+//        1 -> {
+//            Log.d("상태","meun1")
+//            true
+//        }
+//        2 -> {
+//            Log.d("상태","meun2")
+//            true
+//        }
+//        else -> super.onOptionsItemSelected(item)
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
