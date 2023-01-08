@@ -1,12 +1,11 @@
 package com.example.jetpack
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import com.example.jetpack.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -34,8 +33,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean { //메뉴 구성 함수
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        val menuItemsearchView = menu?.findItem(R.id.menu_search)
+        val searchView = menuItemsearchView?.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("상태",newText!!) // 검색어 변경할떄 마다 실행됨
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // 키보드의 검색 버튼을 클릭한 순간의 이벤트(검색어 출력)
+                Log.d("상태",query!!)
+                return true
+            }
+        })
         for(i in 1..10){
-            val meunItem: MenuItem? = menu?.add(0,i,0,"meun${i}") //메뉴 10개 만들기
+            val menuItem: MenuItem? = menu?.add(0,i,0,"meun${i}") //메뉴 10개 만들기
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -51,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
         else -> super.onOptionsItemSelected(item)
     }
+
     override fun onDestroy() {
         super.onDestroy()
         mbinding = null
