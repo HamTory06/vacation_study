@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.jetpack.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,10 +26,15 @@ class MainActivity : AppCompatActivity() {
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.Toolbar)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){ //이렇게 API레벨 호환성을 고려한 반면
-            binding.TextView.lineHeight = 50
-        }
-        binding.AppCompatTextView.lineHeight = 50 //API 레벨 호환성을 고려하지 않아도 된다
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = BlankFragment()
+        transaction.add(R.id.fragment_content, fragment)
+        transaction.commit()
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){ //이렇게 API레벨 호환성을 고려한 반면
+//            binding.TextView.lineHeight = 50
+//        }
+        //binding.AppCompatTextView.lineHeight = 50 //API 레벨 호환성을 고려하지 않아도 된다
         //supportActionBar?.setDisplayHomeAsUpEnabled(true) //메니페스트에서  android:parentActivityName=".MainActivity"를 추가하지 않고 액티비티 코드로 업버튼이 나오게함 이거 쓰면 onSupportNavigateUp함수에서 onBackPressed를 써야되는데 이건 api33에서 지원하지 않는다
         //this.onBackPressedDispatcher.addCallback(this, callback)
         //호환성을 고려한 기본 뷰 클래스
