@@ -12,5 +12,7 @@
         <!-- 상태바 색상 -->
         <item name="android:statusBarColor">#F00</item>
         <!-- 기본 태마 설정 -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.jetpack
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,8 +23,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) //메니페스트에서  android:parentActivityName=".MainActivity"를 추가하지 않고 액티비티 코드로 업버튼이 나오게함 이거 쓰면 onSupportNavigateUp함수에서 onBackPressed를 써야되는데 이건 api33에서 지원하지 않는다
+        setSupportActionBar(binding.Toolbar)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){ //이렇게 API레벨 호환성을 고려한 반면
+            binding.TextView.lineHeight = 50
+        }
+        binding.AppCompatTextView.lineHeight = 50 //API 레벨 호환성을 고려하지 않아도 된다
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true) //메니페스트에서  android:parentActivityName=".MainActivity"를 추가하지 않고 액티비티 코드로 업버튼이 나오게함 이거 쓰면 onSupportNavigateUp함수에서 onBackPressed를 써야되는데 이건 api33에서 지원하지 않는다
         //this.onBackPressedDispatcher.addCallback(this, callback)
+        //호환성을 고려한 기본 뷰 클래스
+        //AppcomPat(TextView,ImageView,EditText,Button)등을 이용하면 호환성문제를 해결해준다
     }
 
     override fun onSupportNavigateUp(): Boolean { //업 버튼을 틀릭 시 자동으로 호출되는 함수 재정의(이 함수를 사용하면 onBackPressed 어노케이션된 함수를 사용하게 되어 사용할수 없다)
