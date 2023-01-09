@@ -3,13 +3,17 @@ package com.example.jetpack_recyclerview
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,16 +67,34 @@ class MainActivity : AppCompatActivity(){
             datas.add("new data")
             (binding.recyclerview.adapter as MyAdapter).notifyDataSetChanged()
         }
+        binding.recyclerview.addItemDecoration(MyDecoration(this))
     }
 }
 
 class MyDecoration(val context: Context): RecyclerView.ItemDecoration(){
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) { //항목이 배치되기 전에 호출된다
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) { //항목이 배치되기 전에 호출된다(Canvas 객체로 각종 그림을 그릴수 있다)
         super.onDraw(c, parent, state)
+        c.drawBitmap(BitmapFactory.decodeResource(context.getResources(),R.drawable.background),0f,0f,null)
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) { //항목이 모두 배치된 후 호출된다
         super.onDrawOver(c, parent, state)
+        //뷰 크기 계산
+        val width = parent.width //가로 크기
+        val height = parent.height //세로 크기
+        //이미지 크기 계산
+        val dr: Drawable? = ResourcesCompat.getDrawable(context.getResources(), R.drawable.background, null)
+        val drWidth = dr?.intrinsicWidth
+        val drHeight = dr?.intrinsicHeight
+        //이미지가 그려질 위치 계산
+        val left = width / 2 - drWidth?.div(2) as Int
+        val top = height / 2 - drHeight?.div(2) as Int
+        c.drawBitmap(
+            BitmapFactory.decodeResource(context.getResources(),R.drawable.img),
+            left.toFloat(),
+            top.toFloat(),
+            null
+        )
     }
 
     override fun getItemOffsets( //개별 항목을 꾸밀 때 호출된다
@@ -82,6 +104,13 @@ class MyDecoration(val context: Context): RecyclerView.ItemDecoration(){
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
+        val index = parent.getChildAdapterPosition(view) + 1
+        if(index % 3 == 0)
+            outRect.set(10, 10, 10, 60) //left, top, right, bottom
+        else
+            outRect.set(10,10,10,0)
+        view.setBackgroundColor(Color.LTGRAY)
+        ViewCompat.setElevation(view,20.0f)
     }
 }
 
