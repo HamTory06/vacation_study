@@ -2,12 +2,37 @@ package com.example.jetpack_recyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack_recyclerview.databinding.ActivityMainBinding
 import com.example.jetpack_recyclerview.databinding.ItemMainBinding
+
+class MyViewHolder(val binding: ItemMainBinding): RecyclerView.ViewHolder(binding.root)
+
+class MyAdapter(val binding: ItemMainBinding): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    override fun getItemCount(): Int = datas.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        MyViewHolder(ItemMainBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("상태","onBindViewHolder : $position")
+        val binding = (holder as MyViewHolder).binding
+        //뷰에 데이터 출력
+        binding.itemData.text = datas[position]
+        //뷰에 이벤트 추가
+        binding.itemRoot.setOnClickListener{
+            Log.d("상태","item root click : $position")
+        }
+    }
+
+
+}
 
 class MainActivity : AppCompatActivity(){
     private var mbinding: ActivityMainBinding ?= null
@@ -26,15 +51,3 @@ class MainActivity : AppCompatActivity(){
     }
 }
 
-class MyAdapter(val binding: ItemMainBinding): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemCount(): Int = datas.size
-
-}
