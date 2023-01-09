@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val datas = mutableListOf<String>()
-        for(i in 1..300){
+        for(i in 1..3){
             datas.add("Item $i")
         }
         binding.viewpager.adapter = MyPagerAdapter(datas)
