@@ -13,7 +13,7 @@ import com.example.jetpack_recyclerview.databinding.ItemMainBinding
 
 class MyViewHolder(val binding: ItemMainBinding): RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(val binding: ItemMainBinding): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyAdapter(val datas: List<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun getItemCount(): Int = datas.size
 
@@ -27,11 +27,9 @@ class MyAdapter(val binding: ItemMainBinding): RecyclerView.Adapter<RecyclerView
         binding.itemData.text = datas[position]
         //뷰에 이벤트 추가
         binding.itemRoot.setOnClickListener{
-            Log.d("상태","item root click : $position")
+            Log.d("상태","item root click : ${position+1}")
         }
     }
-
-
 }
 
 class MainActivity : AppCompatActivity(){
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity(){
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val datas = mutableListOf<String>()
-        for(i in 1..10){
+        for(i in 1..100){
             datas.add("Item $i")
         }
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
