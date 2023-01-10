@@ -16,14 +16,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     class MyFragmentPagerAdapter(activity: FragmentActivity) :
         FragmentStateAdapter(activity){
-            val fragments: List<Fragment>
-            init {
-                fragments = listOf(OneFragment(),TwoFragment(),ThreeFragment())
-            }
+            val fragments: List<Fragment> =
+                listOf(OneFragment(),TwoFragment(),ThreeFragment(),FourFragment())
 
-        override fun getItemCount(): Int = fragments.size
+        override fun getItemCount(): Int = fragments.size //항목크기 구하기 위하여 자동으로 호출
 
-        override fun createFragment(position: Int): Fragment = fragments[position]
+        override fun createFragment(position: Int): Fragment = fragments[position] //프레그먼트 만들기
     }
 
     private var mbinding: ActivityMainBinding?= null
@@ -48,14 +46,21 @@ class MainActivity : AppCompatActivity() {
         //MenuItem 객체를 얻고 그 안에 포함된 ActionView 객체 획득
         val meunItem = menu?.findItem(R.id.menu_search)
         val searchView = meunItem?.actionView as SearchView
+
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //키보드의 검색 버튼을 클릭한 순간의 이벤트
                 Log.d("상태","search text : ${query}")
+//                val OneFragment = OneFragment().datas
+//                val adapter = MyAdapter(OneFragment)
+//                OneFragment.add("${query}")
+//                Log.d("상태","datas.size : ${OneFragment.size}")
+//                adapter.notifyDataSetChanged()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                //Text가 변경된 순간의 이벤트
                 Log.d("상태","newText : $newText")
                 return true
             }
