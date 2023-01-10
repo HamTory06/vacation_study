@@ -1,11 +1,11 @@
 package com.example.ch11_jetpack
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         override fun createFragment(position: Int): Fragment = fragments[position]
     }
 
-    private var mbinding: ActivityMainBinding ?= null
+    private var mbinding: ActivityMainBinding?= null
     private val binding get() = mbinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

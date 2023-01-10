@@ -4,5 +4,5 @@
     <item android:id="@+id/menu_search"
         android:title="search"
         app:showAsAction="always"
-        app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>
