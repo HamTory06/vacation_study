@@ -30,7 +30,7 @@ class OneFragment : Fragment() {
         val binding = FragmentOneBinding.inflate(layoutInflater,container,false)
         //리사이클러 뷰를 위한 가상 데이터 준비
         for(i in 1..9){
-            datas.add("Item $i")
+            datas.add("Item $i") //리사이클러뷰(항목) 9개 추가
         }
         var data = 10
         //리사이클러 뷰에 LayoutManager, Adapter, ItemDecoration 적용
@@ -38,10 +38,10 @@ class OneFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         val adapter = MyAdapter(datas)
 
-        binding.addRecyclerview.setOnClickListener {
-            datas.add("Item $data")
+        binding.addRecyclerview.setOnClickListener { //버튼을 클릭하면
+            datas.add("Item $data") //리사이클러뷰(항목)추가
             data++
-            adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged() //화면에 나오도록 F5느낌
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(MyDecoration(activity as Context))
@@ -77,23 +77,24 @@ class MyAdapter(val datas: MutableList<String>): RecyclerView.Adapter<RecyclerVi
 
 class MyDecoration(val context: Context): RecyclerView.ItemDecoration(){ //리사이클러뷰꾸미기
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) { //모든 항목이 배치된 후 호출된다
         super.onDrawOver(c, parent, state)
         //뷰 크기 계산
-        val width = parent.width
-        val height = parent.height
+        val width = parent.width //가로크기
+        val height = parent.height //세로크기
         //이미지 크기 계산
-        val dr: Drawable? = ResourcesCompat.getDrawable(context.resources,R.drawable.kbo,null)
+        val dr: Drawable? = ResourcesCompat.getDrawable(context.resources,R.drawable.kbo,null) //dr변수에 사진 저장
         val drWidth = dr?.intrinsicWidth
         val drHeight = dr?.intrinsicHeight
         //이미지를 출력할 위치 계산
         val left = width / 2 - drWidth?.div(2) as Int
         val top = height / 2 - drHeight?.div(2) as Int
+        //Log.d("상태","left : $left top : $top")
 
-        c.drawBitmap(
+        c.drawBitmap( //사진 띄우기
             BitmapFactory.decodeResource(context.resources,R.drawable.kbo),
-            left.toFloat(),
-            top.toFloat(),
+            left.toFloat(), //사진띄울위치 좌우
+            top.toFloat(), //사진띄울위치 위아래
             null
         )
     }
@@ -105,15 +106,15 @@ class MyDecoration(val context: Context): RecyclerView.ItemDecoration(){ //리�
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val index = parent.getChildAdapterPosition(view) + 1
+        val index = parent.getChildAdapterPosition(view) + 1 //0부터 시작이여서 1추가
 
-        if(index % 3 == 0){
+        if(index % 3 == 0){ //3번째 칸마다
             outRect.set(10,10,10,60)//마진 느낌
         }
         else{
             outRect.set(10,10,10,0)//이것도 마진 느낌
         }
-        view.setBackgroundColor(Color.parseColor("#28A0FF"))
-        ViewCompat.setElevation(view,20.0f)
+        view.setBackgroundColor(Color.parseColor("#28A0FF")) //각 리사이클러뷰(항목)마다 BackgroundColor변경
+        ViewCompat.setElevation(view,0f)//뭔지 잘 모르겠다..
     }
 }
