@@ -9,20 +9,21 @@ import com.example.jetpack_drawerlayout.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var mbinding: ActivityMainBinding ?= null
     private val binding get() = mbinding!!
-    //lateinit var toggle: ActionBarDrawerToggle
+    lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        toggle = ActionBarDrawerToggle(this,binding.drawer, R.string.drawer_opened,R.string.drawer_closed)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        toggle.syncState()
+        //ActionBarDrawerToggle 버튼 적용
+        toggle = ActionBarDrawerToggle(this,binding.drawer, R.string.drawer_opened,R.string.drawer_closed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) //토글버튼으로 사용할 아이콘 출력
+        toggle.syncState()
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(toggle.onOptionsItemSelected(item)){
-//            return true
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+       }
+        return super.onOptionsItemSelected(item)
+    }
 }

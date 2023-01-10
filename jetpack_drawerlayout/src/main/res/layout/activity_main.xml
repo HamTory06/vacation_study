@@ -8,16 +8,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"/>
-    <TextView
+        android:background="@color/black">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="100dp"
+            android:textStyle="bold"
+            android:text="Main Activity"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:background="#f00"
-        android:text="I am Drawer"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:gravity="center_horizontal"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start"/>
+        android:background="#808080"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="90dp"
+            android:textStyle="bold"
+            android:text="Drawer"
+            />
+    </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
