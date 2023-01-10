@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">jetpack_DrawerLayout</string>
+    <string name="drawer_opened">open</string>
+    <string name="drawer_closed">closed</string>
+</resources>

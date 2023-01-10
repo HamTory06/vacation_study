@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val fragmentList = listOf(OneFragment(),TwoFragment(),ThreeFragment())
+        //val fragmentList = listOf(OneFragment(),TwoFragment(),ThreeFragment())
 
         val adapter = MyFragmentPagerAdapter(this)
-        adapter.fragment = fragmentList
+        //adapter.fragment = fragmentList
         binding.viewpager.adapter = adapter
         //binding.viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL //뷰 페이저2를 세로로 적용
     }
