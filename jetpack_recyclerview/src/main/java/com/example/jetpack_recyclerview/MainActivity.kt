@@ -56,11 +56,11 @@ class MainActivity : AppCompatActivity(){
         }
         //val layoutManager = GridLayoutManager(this,5,GridLayoutManager.HORIZONTAL,true) //리사이클러뷰 그리드로 배치 spanCount는 열의 개수(2는 2열),가로,true는 왼쪽정렬 false는 오른쪽정렬
         //val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)//StaggeredGridLayoutManager는 높이가 불규칙한 그리드로 배치하기
-        val layoutManager = LinearLayoutManager(this)//리사이클러뷰 세로 설정
+        val layoutManager = LinearLayoutManager(this)
         //layoutManager.orientation = LinearLayoutManager.HORIZONTAL//리사이클러뷰 가로설정
         //binding.recyclerview.layoutManager = layoutManager//리사이클러뷰 가로
         //binding.recyclerview.layoutManager = LinearLayoutManager(this)//리사이클러뷰 세로
-        binding.recyclerview.addItemDecoration(MyDecoration(this))
+        binding.recyclerview.addItemDecoration(MyDecoration(this)) //디자인 클래스 연결
         binding.recyclerview.layoutManager = layoutManager
         binding.recyclerview.adapter = MyAdapter(datas)
         binding.recyclerview.addItemDecoration(DividerItemDecoration(this,LinearLayoutManager.VERTICAL))
@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity(){
             datas.add("new data")
             (binding.recyclerview.adapter as MyAdapter).notifyDataSetChanged()
         }
-
     }
 }
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- CoordinatorLayout은 뷰끼리 상호 작용해야 할 때 사용한다 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,6 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+<!--        scroll|enterAlways 스크롤 시 완전히 사라졌다가 거꾸로 스크롤 시 처음부터 다시 나타난다 -->
+<!--        scroll|enterAlwaysCollapsed 스크롤 시 완전히 사라졌다가 거꾸로 스크롤 시 처음부터 다시 나타나지 않고 메인 콘텐츠 부분이 끝까지 스크롤된 다음에 나타난다 -->
+<!--        scroll|exitUntilCollapsed 스크롤 시 모두 사라지지 않고 툴바를 출력할 정도의 한 줄만 남을때 까지 스크롤된다 -->
+<!--        중첩 스크롤 뷰의 layout_behavior 속성은 자신의 스크롤 정보를 어느 비헤비어 클래스가 받아서 처리해야 하는지를 의미한다 -->
+<!--        컬랩싱 툴바 레이아웃(CollapsingToolbarLayout)은 레이아웃 하위에 선언하여 앱바가 접힐 때 다양한 설정을 할 수 있는 뷰이다 -->
+<!--        예를 들어 앱바가 접힐 때 표시할 제ㅔ목이나 색상(scrimColor)등을 지정할 수 있다 -->
         <com.google.android.material.appbar.CollapsingToolbarLayout
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginBottom="50dp"
@@ -21,23 +28,30 @@
                 android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/background"
-                app:layout_scrollFlags="scroll|enterAlways"/>
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="parallax"
+                android:src="@drawable/background" />
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.core.widget.NestedScrollView
+    <!-- CoordinatorLayout을 이용하더라도 텍스트 뷰,이미지 뷰등은 스크롤을 연동 할수 없다 -->
+    <!-- 만약 이런 뷰에서 발생하는 스크롤을 연동하려면 androidx.core.widget.NestedScrollView를 이용한다 -->
+    <!-- 코디네이터 레이아웃에 중첩 스크롤 뷰(NestedScrollView)를 포함하고 여기에 텍스트 뷰나 이미지뷰를 넣으면 해당 뷰에서 발생하는 스크롤 정보를 코디네이터 레이아웃에 전달하여 앱바 레이아웃이 함께 스크롤 되게 할수 있다 -->
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/용서"/>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/용서"/>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
