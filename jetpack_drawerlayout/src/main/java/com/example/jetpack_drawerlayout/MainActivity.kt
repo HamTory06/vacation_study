@@ -16,19 +16,19 @@ class MainActivity : AppCompatActivity() {
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //ActionBarDrawerToggle 버튼 적용
-//        toggle = ActionBarDrawerToggle(this,binding.drawer, R.string.drawer_opened,R.string.drawer_closed)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true) //토글버튼으로 사용할 아이콘 출력
-//        toggle.syncState()
+        toggle = ActionBarDrawerToggle(this,binding.drawer, R.string.drawer_opened,R.string.drawer_closed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) //토글버튼으로 사용할 아이콘 출력
+        toggle.syncState()
         binding.mainDrawerView.setNavigationItemSelectedListener {
             Log.d("상태","navigation item click ${it.title}")
             true
         }
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(toggle.onOptionsItemSelected(item)){
-//            return true
-//       }
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+       }
+        return super.onOptionsItemSelected(item)
+    }
 }
