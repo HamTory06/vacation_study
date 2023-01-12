@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
 import androidx.viewpager2.widget.ViewPager2
 import com.example.jetpack_viewpager2_fragmentstateadapter.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private var mbinding : ActivityMainBinding ?= null
@@ -17,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //val fragmentList = listOf(OneFragment(),TwoFragment(),ThreeFragment())
+        val fragmentList = listOf(OneFragment(),TwoFragment(),ThreeFragment())
 
         val adapter = MyFragmentPagerAdapter(this)
-        //adapter.fragment = fragmentList
+        adapter.fragment = fragmentList
         binding.viewpager.adapter = adapter
         //binding.viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL //뷰 페이저2를 세로로 적용
     }
