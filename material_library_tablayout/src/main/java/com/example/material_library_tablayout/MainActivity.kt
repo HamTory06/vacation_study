@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         //뷰에 어댑터 적용
         val adapter = MyFragmentPagerAdapter(this)
         binding.viewpager.adapter = adapter
-        TabLayoutMediator(binding.tabs, binding.viewpager){ tab,position ->
+        TabLayoutMediator(binding.tabs, binding.viewpager){ tab,position -> //뷰 페이저 화면이 자동으로 조정된다(뷰 페이저의 화면이 3개이면 탭 버튼도 자동으로 3개가 나온다)
             tab.text = "Tab${position + 1}"
         }.attach()
 

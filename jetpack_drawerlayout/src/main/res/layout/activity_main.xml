@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,19 +18,11 @@
             android:textStyle="bold"
             android:text="Main Activity"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="300dp"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/main_drawer_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#808080"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textSize="90dp"
-            android:textStyle="bold"
-            android:text="Drawer"
-            />
-    </LinearLayout>
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/menu_navigation"/>
 </androidx.drawerlayout.widget.DrawerLayout>
