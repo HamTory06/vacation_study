@@ -12,8 +12,8 @@
             android:exported="true" >
             <intent-filter>
                 <action android:name="ACTION_EDIT"/>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.categoty.LAUNCHER"/>
+                <action android:name="android.intent.categoty.DRFAULT"/>
+                <data android:scheme="http"/>
             </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
