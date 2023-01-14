@@ -4,12 +4,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import com.example.activity_life_cycle.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private var mbinding: ActivityMainBinding ?= null
+    private val binding get() = mbinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mbinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d("상태","onCreate()")
+        val manager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.showInputButton.setOnClickListener {
+            binding.edittext.requestFocus() //뷰에 포커스 강제
+            manager.showSoftInput(binding.edittext, InputMethodManager.SHOW_IMPLICIT) //showSoftInput() 함수를 이용할 때 첫번째 매개변수가 글이 입력될 뷰인데 이뷰가 포커스를 가지지 않은 상태라면 키보드가 나타나지 않는다
+//            manager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0)
+        }
+        binding.hideInputButton.setOnClickListener {
+            manager.hideSoftInputFromWindow(currentFocus?.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 
     override fun onStart() { //onRestart()함수를 통해 돌아옴
