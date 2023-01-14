@@ -1,9 +1,13 @@
 package com.example.activity_life_cycle
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.example.activity_life_cycle.databinding.ActivityMainBinding
 
@@ -25,6 +29,19 @@ class MainActivity : AppCompatActivity() {
             manager.hideSoftInputFromWindow(currentFocus?.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS)
         }
+
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){ //API래벨 30이상
+//            window.setDecorFitsSystemWindows(false)
+//            val controlller = window.insetsController
+//            if(controlller != null){
+//                controlller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+//                controlller.systemBarsBehavior =
+//                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//            } else {
+//                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//            }
+//        }
     }
 
     override fun onStart() { //onRestart()함수를 통해 돌아옴
