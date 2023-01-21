@@ -8,6 +8,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VacationStudy">
         <activity
+            android:name=".onClick"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddActivity"
             android:exported="false">
             <meta-data

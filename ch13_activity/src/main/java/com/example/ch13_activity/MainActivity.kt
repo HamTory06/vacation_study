@@ -49,9 +49,10 @@ class MainActivity : AppCompatActivity() {
         binding.mainRecyclerView.layoutManager = layoutManager
         adapter = MyAdapter(datas)
         binding.mainRecyclerView.adapter = adapter
-        binding.mainRecyclerView.addItemDecoration(
+        binding.mainRecyclerView.addItemDecoration( //리사이클러뷰 구분선
             DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         )
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
