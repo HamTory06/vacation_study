@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 //        Dispatchers.Main 액티비티의 메인 스레드에서 동작하는 코루틴을 만든다
 //        Dispatchers.Default CPU를 많이 사용하는 작업을 백그라운드에서 실행한다
 //        Dispatchers.IO 파일을 읽거나 쓰기 또는 네트위크 작업 등에 최적화
-        val channel = Channel<Int>()
+        val channel = Channel<Int>() //channel은 큐 알고리즘과 비슷하다
         val backgroundScope = CoroutineScope(Dispatchers.Default + Job())
         backgroundScope.launch {
             var sum = 0L
@@ -63,10 +63,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             Log.d("상태","time : $time")
-            channel.send(sum.toInt())
+            channel.send(sum.toInt()) //send()함수로 데이터를 전달하면
         }
         val mainScope = GlobalScope.launch(Dispatchers.Main){
-            channel.consumeEach {
+            channel.consumeEach { //consumeEach() 함수로 데이터를 받는다
                 binding.textview.text = "sum : $it"
             }
         }
