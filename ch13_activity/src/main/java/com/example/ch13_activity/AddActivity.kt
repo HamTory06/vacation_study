@@ -21,11 +21,11 @@ class AddActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean  = when(item.itemId){
-        R.id.menu_add_save -> {
+        R.id.menu_add_save -> { //저장 버튼을 누르면
             val intent = intent
-            intent.putExtra("result",binding.addEditView.text.toString())
+            intent.putExtra("result",binding.addEditView.text.toString()) //인텐트로 EditText에서 적은 글자를 가져옴
             setResult(Activity.RESULT_OK,intent)
-            finish()
+            finish() //엑티비티 종료
             true
         }
         else -> true

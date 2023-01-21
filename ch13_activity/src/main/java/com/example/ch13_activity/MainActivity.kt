@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
-        binding.mainFab.setOnClickListener {
+        binding.mainFab.setOnClickListener { //버튼 클릭
             val intent = Intent(this, AddActivity::class.java)
-            requestLauncher.launch(intent)
+            requestLauncher.launch(intent) //Add엑티비티로 넘어감
         }
 
         datas = savedInstanceState?.let {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.mainRecyclerView.layoutManager = layoutManager
-        adapter = MyAdapter(datas)
+        adapter = MyAdapter(datas) //리사이클러뷰에 데이터 넣기
         binding.mainRecyclerView.adapter = adapter
         binding.mainRecyclerView.addItemDecoration( //리사이클러뷰 구분선
             DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
