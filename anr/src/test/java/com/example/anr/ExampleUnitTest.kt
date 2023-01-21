@@ -1,4 +1,4 @@
-package com.example.jetpack_recyclerview
+package com.example.anr
 
 import org.junit.Test
 
