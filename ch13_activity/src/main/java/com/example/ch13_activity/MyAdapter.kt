@@ -29,7 +29,7 @@ class MyAdapter(val datas: MutableList<String>?): RecyclerView.Adapter<RecyclerV
         binding.itemData.text= datas!![position]
         binding.itemRoot.setOnClickListener {
             val intent = Intent(context,onClick::class.java)
-//            intent.putExtra("")
+            intent.putExtra("datas",datas!![position])
             intent.run { context.startActivity(this) }
         }
     }
