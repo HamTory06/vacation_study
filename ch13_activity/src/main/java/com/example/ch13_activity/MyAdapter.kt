@@ -26,7 +26,7 @@ class MyAdapter(val datas: MutableList<String>?): RecyclerView.Adapter<RecyclerV
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) { //뷰에 데이터 출력
         val binding=(holder as MyViewHolder).binding
         val context = binding.itemRoot.context
-        binding.itemData.text= datas!![position]
+        binding.itemData.text = datas!![position]
         binding.itemRoot.setOnClickListener {
             val intent = Intent(context,onClick::class.java)
             intent.putExtra("datas",datas!![position])
