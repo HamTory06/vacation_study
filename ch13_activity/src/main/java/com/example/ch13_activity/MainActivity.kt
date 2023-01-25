@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
+
         binding.mainFab.setOnClickListener { //버튼 클릭
             val intent = Intent(this, AddActivity::class.java)
             requestLauncher.launch(intent) //Add엑티비티로 넘어감
