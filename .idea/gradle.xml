@@ -37,6 +37,7 @@
             <option value="$PROJECT_DIR$/outer_component" />
             <option value="$PROJECT_DIR$/permission" />
             <option value="$PROJECT_DIR$/progress" />
+            <option value="$PROJECT_DIR$/receiver_background" />
             <option value="$PROJECT_DIR$/service_component" />
             <option value="$PROJECT_DIR$/sound_vibration" />
           </set>
