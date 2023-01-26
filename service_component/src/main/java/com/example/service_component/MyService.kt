@@ -3,6 +3,7 @@ package com.example.service_component
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -34,10 +35,21 @@ class MyService : Service() {
             }
         }
     }
+//    class MyBinder : Binder(){
+//        fun funA(arg: Int){
+//
+//        }
+//        fun funB(arg: Int): Int{
+//            return arg * arg
+//        }
+//    }
 
     override fun onBind(intent: Intent?): IBinder? {
         messenger = Messenger(IncomingHandler(this))
         Log.d("상태","onBind")
         return messenger.binder
+//        return MyBinder()
     }
 }
+
+

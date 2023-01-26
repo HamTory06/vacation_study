@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.Message
 import android.os.Messenger
+import android.util.Log
 import com.example.service_component.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("상태","onCreate()")
 //        startService() 함수로 실행
 //        백그라운드 작업은 필요하지만 액티비티와 데이터를 주고 받을 일이 없는 등 서로 관련이 없다면 startService() 함수로 서비스를 실행
 //        onCreate() -> onStartCommand() -> 서비스실행 -> onDestroy()
@@ -35,13 +37,18 @@ class MainActivity : AppCompatActivity() {
 //        onCreate() -> onBind() -> 서비스실행 -> onUnbind() -> onDestroy()
         val intent = Intent(this, MyService::class.java)
         bindService(intent, connection, Context.BIND_AUTO_CREATE)
-        unbindService(connection)
     }
-    val connection: ServiceConnection = object : ServiceConnection{ //bindService()함수로 실행
+    val connection: ServiceConnection = object : ServiceConnection { //bindService()함수로 실행
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             //bindService() 함수로 서비스를 구동할 때 자동으로 호출
             messenger = Messenger(service)
+            val msg = Message()
+            msg.what = 10
+            msg.obj = "hello"
+            messenger.send(msg)
+//            val servideBinder = service as MyService.MyBinder
+//            Log.d("상태", servideBinder.funB(10).toString())
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
