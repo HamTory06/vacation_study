@@ -13,7 +13,7 @@ import android.util.Log
 import com.example.service_component.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var messenger: Messenger
+    lateinit var aidlService: MyAidlInterface
     private var mbinding : ActivityMainBinding ?= null
     private val binding get() = mbinding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,24 +35,35 @@ class MainActivity : AppCompatActivity() {
 //        bindService() 함수로 실행
 //        서비스와 액티비티가 상호작용 해야 할떄가 있으면 bindService()
 //        onCreate() -> onBind() -> 서비스실행 -> onUnbind() -> onDestroy()
-        val intent = Intent(this, MyService::class.java)
+        val intent = Intent("ACTION_AIDL_SERVICE")
+        intent.setPackage("com.example.outer_component")
         bindService(intent, connection, Context.BIND_AUTO_CREATE)
+//        val intent = Intent("ACTION_OUTER_SERVICE")
+//        intent.setPackage("com.example.permission") //프로세스 간 통신에서는 주고받는 데이터는 Parcelable이나 Bundle 타입이어야 한다
+//        bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
     val connection: ServiceConnection = object : ServiceConnection { //bindService()함수로 실행
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             //bindService() 함수로 서비스를 구동할 때 자동으로 호출
-            messenger = Messenger(service)
-            val msg = Message()
-            msg.what = 10
-            msg.obj = "hello"
-            messenger.send(msg)
+            aidlService = MyAidlInterface.Stub.asInterface(service)
+            Log.d("상태","${aidlService.funA("hello")}")
+//            messenger = Messenger(service)
+//            val bundle = Bundle() //데이터를 Bundle에 담고 다시 Message 객체에 담아서 전달한다
+//            bundle.putString("data1", "hello")
+//            bundle.putInt("data2",10)
+//            val msg = Message()
+//            msg.what = 10
+//            msg.obj = "hello"
+//            msg.obj = bundle
+//            messenger.send(msg)
 //            val servideBinder = service as MyService.MyBinder
 //            Log.d("상태", servideBinder.funB(10).toString())
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
             //unbindService() 함수로 서비스를 종료할 때 자동으로 호출
+            Log.d("상태","onServiceDisconnected...")
         }
     }
 }

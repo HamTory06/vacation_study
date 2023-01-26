@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/activity_life_cycle" />
+            <option value="$PROJECT_DIR$/aidl" />
             <option value="$PROJECT_DIR$/alarm" />
             <option value="$PROJECT_DIR$/anr" />
             <option value="$PROJECT_DIR$/app" />
@@ -33,6 +34,7 @@
             <option value="$PROJECT_DIR$/material_library" />
             <option value="$PROJECT_DIR$/material_library_actionbutton" />
             <option value="$PROJECT_DIR$/material_library_tablayout" />
+            <option value="$PROJECT_DIR$/outer_component" />
             <option value="$PROJECT_DIR$/permission" />
             <option value="$PROJECT_DIR$/progress" />
             <option value="$PROJECT_DIR$/service_component" />

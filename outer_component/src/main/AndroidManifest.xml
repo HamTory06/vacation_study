@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <queries>
-        <package android:name="com.example.permission" />
-    </queries>
-    <queries>
-        <package android:name="com.example.outer_component" />
-    </queries>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,11 +8,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VacationStudy">
         <service
-            android:name=".MyAIDLService"
+            android:name=".MyService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="ACTION_AIDL_SERVICE"/>
+                <action android:name="com.example.vacationstudy.MyService"/>
             </intent-filter>
         </service>
 
@@ -37,7 +30,5 @@
                 android:value="" />
         </activity>
     </application>
-    <queries>
-        <package android:name="com.example.outer_component"/>
-    </queries>
+
 </manifest>
