@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/ch6_view" />
             <option value="$PROJECT_DIR$/ch8_event" />
             <option value="$PROJECT_DIR$/ch9_resource" />
+            <option value="$PROJECT_DIR$/contentprovider" />
             <option value="$PROJECT_DIR$/custom_dialog" />
             <option value="$PROJECT_DIR$/intent" />
             <option value="$PROJECT_DIR$/jetpack" />

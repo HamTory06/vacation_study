@@ -34,7 +34,7 @@ class MyJobService : JobService() {
         return false
     }
 
-    override fun onStopJob(params: JobParameters?): Boolean {
+    override fun onStopJob(params: JobParameters): Boolean {
         return true
     }
 
