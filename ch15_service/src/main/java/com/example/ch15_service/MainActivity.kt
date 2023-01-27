@@ -1,4 +1,4 @@
-package com.example.ch15_outer
+package com.example.ch15_service
 
 import android.annotation.TargetApi
 import android.app.job.JobInfo
@@ -10,6 +10,7 @@ import android.content.ServiceConnection
 import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ch15_outer.MyAidlInterface
 import com.example.ch15_service.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var replyMessenger: Messenger
     var messengerJob: Job ?= null
     //aidl
-    var aidlService: MyAidlInterface ?= null
+    var aidlService: MyAidlInterface?= null
     var aidlJob: Job ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             binding.messengerStop.isEnabled = false
             binding.aidlStop.isEnabled = false
 
-            binding. messengerProgress.progress = 0
+            binding.messengerProgress.progress = 0
             binding.aidlProgress.progress = 0
         }
     }
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity() {
             super.handleMessage(msg)
             when(msg.what){
                 10 -> {
+                    //재생 후 지속 시간이 전송되면
                     val bundle = msg.obj as Bundle
                     bundle.getInt("duration").let {
                         when{
@@ -131,11 +133,13 @@ class MainActivity : AppCompatActivity() {
     private fun onCreateMessengerService(){
         replyMessenger = Messenger(HandlerReplyMsg())
         binding.messengerPlay.setOnClickListener {
+            Log.d("상태","messengerPlay")
             val intent = Intent("ACTION_SERVICE_Messenger")
-            intent.setPackage("com.example.ch25_outer")
+            intent.setPackage("com.example.ch15_outer")
             bindService(intent, messengerConnection, Context.BIND_AUTO_CREATE)
         }
         binding.messengerStop.setOnClickListener {
+            Log.d("상태","messengerStop")
             val msg = Message()
             msg.what = 20
             messenger.send(msg)

@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VacationStudy">
         <service
-            android:name="com.example.ch15_outer.MyJobService"
+            android:name=".MyJobService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity
-            android:name="com.example.ch15_outer.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

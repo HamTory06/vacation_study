@@ -1,4 +1,4 @@
-package com.example.ch15_outer
+package com.example.ch15_service
 
 import android.annotation.TargetApi
 import android.app.Notification

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.*
+import android.util.Log
 
 class MyMessengerService : Service() {
     //액티비티의 데이터를 전달받는 메신저
@@ -15,11 +16,13 @@ class MyMessengerService : Service() {
     override fun onCreate() {
         super.onCreate()
         player = MediaPlayer() //기본 생성
+        Log.d("상태","MyMessengerService_onCreate()")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         player.release() //MediaPlayer 개체와 연결된 리소스를 해제
+        Log.d("상태","MyMessengerService_onDestroy()")
     }
     //액티비티로 부터 메시지가 전달되었을 때
     inner class IncomingHandler(
@@ -34,6 +37,7 @@ class MyMessengerService : Service() {
                     if(!player.isPlaying) {
                         player = MediaPlayer.create(this@MyMessengerService, R.raw.music)
                         try {
+                            //지속 시간 전송
                             val replyMsg = Message()
                             replyMsg.what = 10
                             val replyBundle = Bundle()
@@ -60,6 +64,7 @@ class MyMessengerService : Service() {
     }
 
     override fun onBind(intent: Intent): IBinder {
+        Log.d("상태","MyMessengerService_onBind()")
         messenger = Messenger(IncomingHandler(this))
         return messenger.binder
     }
