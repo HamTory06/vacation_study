@@ -2,18 +2,11 @@ package com.example.ch9_resource
 
 import android.annotation.TargetApi
 import android.app.Notification
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.ch9_resource.BuildConfig.VERSION_CODE
 import com.example.ch9_resource.databinding.ActivityMainBinding
-import java.security.Permission
 
 class MainActivity : AppCompatActivity() {
     private var mbinding : ActivityMainBinding ?= null

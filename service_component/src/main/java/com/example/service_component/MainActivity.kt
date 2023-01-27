@@ -7,8 +7,6 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.os.Message
-import android.os.Messenger
 import android.util.Log
 import com.example.service_component.databinding.ActivityMainBinding
 
