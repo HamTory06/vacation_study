@@ -7,9 +7,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.*
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.ch15_outer.MyAidlInterface
 import com.example.ch15_service.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
@@ -41,6 +45,33 @@ class MainActivity : AppCompatActivity() {
 
         //jobscheduler
         onCreateJobScheduler()
+        val permissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+            if (it.all { permission -> permission.value == true }) {
+                onCreateJobScheduler()
+            } else {
+                Toast.makeText(this, "permission denied...", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    "android.permission.POST_NOTIFICATIONS"
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                onCreateJobScheduler()
+            } else {
+                permissionLauncher.launch(
+                    arrayOf(
+                        "android.permission.POST_NOTIFICATIONS"
+                    )
+                )
+            }
+        }else {
+            onCreateJobScheduler()
+        }
     }
 
     override fun onStop() {
@@ -151,6 +182,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onStopMessengerService(){
+        Log.d("상태","onStopMessengerService")
         val msg = Message()
         msg.what = 20
         messenger.send(msg)

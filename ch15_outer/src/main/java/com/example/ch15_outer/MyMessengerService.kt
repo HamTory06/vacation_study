@@ -45,15 +45,18 @@ class MyMessengerService : Service() {
                             replyMsg.obj = replyBundle
                             replyMessenger.send(replyMsg)
                             //음악 재생
+                            Log.d("상태","MyMessengerService_player.start()")
                             player.start()
                         } catch (e: Exception){
                             e.printStackTrace()
+                            Log.d("상태","e : ${e.message}")
                         }
                     }
                 }
                 20 -> {
                     //멈춤 메시지
                     if(player.isPlaying)
+                        Log.d("상태","MyMessengerService_player.stop()")
                         player.stop()
                 }
                 else -> {

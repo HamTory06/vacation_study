@@ -10,10 +10,12 @@ import android.app.job.JobService
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class MyJobService : JobService() {
     override fun onStartJob(params: JobParameters?): Boolean {
+        Log.d("상태","onStartJob...")
         val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val channel = NotificationChannel("oneId","oneName",NotificationManager.IMPORTANCE_DEFAULT)
