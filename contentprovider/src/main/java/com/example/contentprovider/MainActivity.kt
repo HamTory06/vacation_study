@@ -1,7 +1,9 @@
 package com.example.contentprovider
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -31,11 +33,45 @@ class MainActivity : AppCompatActivity() {
         val option = BitmapFactory.Options()
         option.inSampleSize = 4
         val Bitmap = BitmapFactory.decodeStream(InputStream.nullInputStream(), null, option)
+//        binding.button.setOnClickListener {
+//            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//            intent.type = "image/*"
+//            requestLauncher.launch(intent)
+//        }
         binding.button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            startActivity(intent)
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            requestLauncher.launch(intent)
         }
+        requestLauncher =registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+            val bitmap = it?.data?.extras?.get("data") as Bitmap
+        }
+//        requestLauncher = registerForActivityResult(
+//            ActivityResultContracts.StartActivityForResult())
+//        {
+//            try {
+//                //inSampleSize 비율 계산, 지정
+//                val calRatio = calcuateInSampleSize(it!!.data!!.data!!,
+//                resources.getDimensionPixelSize(R.dimen.imgSize),
+//                resources.getDimensionPixelSize(R.dimen.imgSize))
+//                val option = BitmapFactory.Options()
+//                option.inSampleSize=calRatio
+//
+//                //이미지 로딩
+//                var inputStream = contentResolver.openInputStream(it!!.data!!.data!!)
+//                val bitmap = BitmapFactory.decodeStream(inputStream, null, option)
+//                inputStream!!.close()
+//                inputStream = null
+//                bitmap?. let {
+//                    binding.ImageView.setImageBitmap(bitmap)
+//                } ?: let{
+//                    Log.d("상태","bitmap null")
+//                }
+//            } catch (e: Exception){
+//                e.printStackTrace()
+//            }
+//        }
 //        val status = ContextCompat.checkSelfPermission(this, "android.permission.READ_CONTACTS")
 //        if(status == PackageManager.PERMISSION_GRANTED){
 //            //퍼미션 허용이라면
