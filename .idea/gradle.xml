@@ -7,6 +7,7 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="Embedded JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -29,6 +30,7 @@
             <option value="$PROJECT_DIR$/ch9_resource" />
             <option value="$PROJECT_DIR$/contentprovider" />
             <option value="$PROJECT_DIR$/custom_dialog" />
+            <option value="$PROJECT_DIR$/datadase" />
             <option value="$PROJECT_DIR$/intent" />
             <option value="$PROJECT_DIR$/jetpack" />
             <option value="$PROJECT_DIR$/jetpack_drawerlayout" />
