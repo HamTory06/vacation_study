@@ -2,33 +2,81 @@ package com.example.datadase
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import com.example.datadase.databinding.ActivityMainBinding
 import java.io.BufferedReader
 import java.io.File
 import java.io.OutputStreamWriter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private var mbinding: ActivityMainBinding ?= null
     private val binding get() = mbinding!!
+
+    lateinit var filePath: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val file: File = File(getExternalFilesDir(null), "text.txt")
-        val writeStream: OutputStreamWriter = file.writer()
-        writeStream.write("hello world")
-        writeStream.flush()
-        Log.d("상태","${file?.absolutePath}") //파일 위치
-        //파일 읽기
-        val readStream: BufferedReader = file.reader().buffered()
-        readStream.forEachLine {
-            Log.d("상태","$it")
+//        val file: File = File(getExternalFilesDir(null), "text.txt")
+//        val writeStream: OutputStreamWriter = file.writer()
+//        writeStream.write("hello world")
+//        writeStream.flush()
+//        Log.d("상태","${file?.absolutePath}") //파일 위치
+//        //파일 읽기
+//        val readStream: BufferedReader = file.reader().buffered()
+//        readStream.forEachLine {
+//            Log.d("상태","$it")
+//        }
+
+
+
+        if(Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED){ //외장 메모리 사용 가능 여부 판단
+            Log.d("상태","ExternalStorageState MOUNTED")
+        } else {
+            Log.d("상태","ExternalStorageState UNMOUNTED")
         }
-//
+//        val file: File = File(getExternalFilesDir(null), "test.txt")
+//        val writeStream: OutputStreamWriter = file.writer()
+//        writeStream.write("hello world")
+//        writeStream.flush()
+//        val readStream: BufferedReader = file.reader().buffered()
+//        readStream.forEachLine {
+//            Log.d("상태","$it")
+//        }
+//        Log.d("상태","${file?.absolutePath}") //파일 위치
+
+
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File ?= getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val file = File.createTempFile(
+            "JPEG_${timeStamp}_",
+            ".jpg",
+            storageDir
+        )
+        filePath = file.absolutePath
+        //파일 Uri 획득
+        val photoURI: Uri = FileProvider.getUriForFile(
+            this,
+            "com.example.datadase.fileprovider", file
+        )
+
+        //카메라 실행
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
 //        val db_1 = openOrCreateDatabase("testdb_1", Context.MODE_PRIVATE, null) //데이터베이스 객체 생성
 ////        val db_2 = openOrCreateDatabase("testdb_2", Context.MODE_PRIVATE, null)
 ////        val db: SQLiteDatabase = DBHelper(this).writableDatabase //베이터 베이스 객체 생성()
