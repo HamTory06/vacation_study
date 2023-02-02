@@ -57,9 +57,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.galleryButton.setOnClickListener {
             //갤러리 앱
-            val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            requsetGalleryLauncher.launch(intent)
+            val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI) //갤러리 앱 선택 intent
+            intent.type = "image/*" //intent 타입
+            requsetGalleryLauncher.launch(intent) //런처 인텐트 이용 실행
         }
 
         //카메라 요청 런처
@@ -80,25 +80,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.cameraButton.setOnClickListener {
+        binding.cameraButton.setOnClickListener { //버튼 누르면
             //카메라 앱
             val timeStamp: String =
-                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()) //현재 시간저장
             val storageDir: File ?=
-                getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val file = File.createTempFile(
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES) //파일 만들기
+            val file = File.createTempFile( //파일 형태_ 파일 이름을 현재 시간으로
                 "JPEG_${timeStamp}_",
                 ".JPG",
                 storageDir
             )
             filePath = file.absolutePath
-            val photoURI: Uri = FileProvider.getUriForFile(
+            val photoURI: Uri = FileProvider.getUriForFile( //사진 저장
                 this,
                 "com.example.ch16_provider.fileprovider",file
             )
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-            requestCameraFileLauncher.launch(intent)
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE) //intent 실행
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI) //intent로 사진파일 넘기기
+            requestCameraFileLauncher.launch(intent) //카메라 런처 실행
         }
     }
 
