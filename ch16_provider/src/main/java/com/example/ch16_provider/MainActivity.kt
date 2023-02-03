@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             )
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE) //intent 실행
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI) //intent로 사진파일 넘기기
+            Log.d("상태","${file}")
             requestCameraFileLauncher.launch(intent) //카메라 런처 실행
         }
     }

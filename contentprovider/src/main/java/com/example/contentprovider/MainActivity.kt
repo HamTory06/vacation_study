@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             requestLauncher.launch(intent)
         }
-        requestLauncher =registerForActivityResult(
+        requestLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
         {
 //            val bitmap = it?.data?.extras?.get("data") as Bitmap

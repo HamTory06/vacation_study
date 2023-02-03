@@ -1,5 +1,6 @@
 package com.example.datadase
 
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -22,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private var mbinding: ActivityMainBinding ?= null
+    private var mbinding : ActivityMainBinding ?= null
     private val binding get() = mbinding!!
 
     lateinit var filePath: String
@@ -40,6 +41,15 @@ class MainActivity : AppCompatActivity() {
 //        readStream.forEachLine {
 //            Log.d("상태","$it")
 //        }
+
+        var requestCameraFileLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+//            val bitmap = it?.data?.extras?.get("data") as Bitmap
+            val option = BitmapFactory.Options()
+            option.inSampleSize = 10 //OOM오류를 방지하기 위하여
+            val bitmap = BitmapFactory.decodeFile(filePath, option)
+        }
 
 
 
@@ -76,6 +86,40 @@ class MainActivity : AppCompatActivity() {
         //카메라 실행
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+        requestCameraFileLauncher.launch(intent)
+
+        val projection = arrayOf(
+            MediaStore.Images.Media._ID,
+            MediaStore.Images.Media.DISPLAY_NAME
+        )
+
+        val cursor = contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            projection,
+            null,
+            null,
+            null
+        )
+
+        cursor?.let {
+            while (cursor.moveToNext()){
+                Log.d("상태","_id : ${cursor.getLong(0)}, name : ${cursor.getString(1)}")
+            }
+        }
+
+            val contentUri: Uri = ContentUris.withAppendedId(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                cursor!!.getLong(0)
+            )
+            val resolver = applicationContext.contentResolver
+            resolver.openInputStream(contentUri).use { stream ->
+                // stream 객체에서 작업 수행
+                val option = BitmapFactory.Options()
+                option.inSampleSize = 10
+                val bitmap = BitmapFactory.decodeStream(stream, null, option)
+                binding.imageview.setImageBitmap(bitmap)
+            }
+
 
 //        val db_1 = openOrCreateDatabase("testdb_1", Context.MODE_PRIVATE, null) //데이터베이스 객체 생성
 ////        val db_2 = openOrCreateDatabase("testdb_2", Context.MODE_PRIVATE, null)
