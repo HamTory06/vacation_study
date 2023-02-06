@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="notifications"-->
+<!--        app:title="Enable message notifications"/>-->
+<!--    <Preference-->
+<!--        app:key="feedback"-->
+<!--        app:title="Send feedback"-->
+<!--        app:summary="Report technical issues or suggest new features"/>-->
+<!--    <PreferenceCategory-->
+<!--        app:key="a_category"-->
+<!--        app:title="A Setting">-->
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="a1"-->
+<!--            app:title="A - 1 Setting"/>-->
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="a2"-->
+<!--            app:title="A - 2 Setting"/>-->
+<!--    </PreferenceCategory>-->
+<!--    <PreferenceCategory-->
+<!--        app:key="B_category"-->
+<!--        app:title="B Setting">-->
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="b1"-->
+<!--            app:title="B - 1 Setting"/>-->
+<!--    </PreferenceCategory>-->
+<!--    <Preference-->
+<!--        app:key="a"-->
+<!--        app:summary="A Setting summary"-->
+<!--        android:title="A Setting"-->
+<!--        app:fragment=""/>-->
+<!--    <Preference-->
+<!--        app:key="b"-->
+<!--        app:summary="B Setting summary"-->
+<!--        android:title="B Setting"-->
+<!--        app:fragment="com.example.preferences.BSettingFragment"/>-->
+    <EditTextPreference
+        android:dialogTitle="닉네임 설정"
+        app:key="nickname"
+        app:summary="닉네임을 설정하세요"
+        app:title="닉네임"/>
+    <Preference
+        android:key="a"
+        android:summary="A"
+        android:title="a"
+        android:fragment="ASettingFragment"/>
+    <Preference
+        android:key="b"
+        android:summary="B"
+        android:title="b"
+        android:fragment="BSettingFragment"/>
+</PreferenceScreen>

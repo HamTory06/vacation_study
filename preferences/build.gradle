@@ -37,6 +37,10 @@ android {
 
 dependencies {
 
+    implementation('androidx.preference:preference:1.2.0'){
+        exclude group: 'androidx.lifecycle', module:'lifecycle-viewmodel' //프리퍼런스를 등록할 때는 exclude를 이용해 제외해야할께 있다 appcompat 라이브러리와 충돌문제로 인하여
+        exclude group: 'androidx.lifecycle', module:'lifecycle-viewmodel-ktx'
+    }
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'

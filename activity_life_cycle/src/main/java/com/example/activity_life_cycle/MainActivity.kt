@@ -14,6 +14,7 @@ import com.example.activity_life_cycle.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var mbinding: ActivityMainBinding ?= null
     private val binding get() = mbinding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mbinding = ActivityMainBinding.inflate(layoutInflater)
