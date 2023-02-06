@@ -37,17 +37,31 @@
 <!--        app:fragment="com.example.preferences.BSettingFragment"/>-->
     <EditTextPreference
         android:dialogTitle="닉네임 설정"
-        app:key="nickname"
+        app:key="id"
         app:summary="닉네임을 설정하세요"
-        app:title="닉네임"/>
-    <Preference
-        android:key="a"
-        android:summary="A"
-        android:title="a"
-        android:fragment="ASettingFragment"/>
-    <Preference
-        android:key="b"
-        android:summary="B"
-        android:title="b"
-        android:fragment="BSettingFragment"/>
+        app:title="닉네임"
+        app:isPreferenceVisible="false"/>
+    <PreferenceCategory>
+        <Preference
+            android:key="a"
+            android:summary="A"
+            android:title="a"
+            android:fragment="ASettingFragment"/>
+        <Preference
+            android:key="b"
+            android:summary="B"
+            android:title="b"
+            android:fragment="BSettingFragment"/>
+    </PreferenceCategory>
+    <EditTextPreference
+        android:key="id"
+        android:title="ID 설정"/>
+    <ListPreference
+        android:key="color"
+        android:title="색상 선택"
+        android:entries="@array/my_color"
+        android:entryValues="@array/my_color"/>
+    <EditTextPreference
+        android:key="id"
+        android:title="ID 설정"/>
 </PreferenceScreen>

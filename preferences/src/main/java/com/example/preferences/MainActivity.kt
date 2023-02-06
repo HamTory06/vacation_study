@@ -21,7 +21,10 @@ PreferenceFragmentCompat.OnPreferenceStartFragmentCallback{
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.d("상태","onCreate")
+
+
     }
+
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat,
         pref: Preference
@@ -38,6 +41,7 @@ PreferenceFragmentCompat.OnPreferenceStartFragmentCallback{
             .commit()
         return true
     }
+
 }
 //    {
 //    private var mbinding: ActivityMainBinding? = null
