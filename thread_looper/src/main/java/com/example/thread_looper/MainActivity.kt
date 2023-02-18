@@ -32,29 +32,7 @@ class MainActivity : AppCompatActivity() {
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.start.setOnClickListener {
-            if(!started){
-                started = true
-                thread {
-                    while (started){
-                        Thread.sleep(1000)
-                        if(started){
-                            total+=1
-                            handler?.sendEmptyMessage(0)
-                        }
-                    }
-                }
-            }
-        }
-        binding.end.setOnClickListener {
-            if(started){
-                started = false
-                total = 0
-                binding.time.text = "00:00"
-            }
-
-        }
+        
 
 
 

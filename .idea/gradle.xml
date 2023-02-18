@@ -49,6 +49,7 @@
             <option value="$PROJECT_DIR$/receiver_background" />
             <option value="$PROJECT_DIR$/service_component" />
             <option value="$PROJECT_DIR$/sound_vibration" />
+            <option value="$PROJECT_DIR$/tablayout" />
             <option value="$PROJECT_DIR$/thread_looper" />
           </set>
         </option>
