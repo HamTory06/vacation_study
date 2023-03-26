@@ -32,12 +32,12 @@ class MyPagerAdapter(val datas: MutableList<String>): RecyclerView.Adapter<Recyc
 }
 
 class MainActivity : AppCompatActivity() {
-    private var mbinding : ActivityMainBinding ?= null
-    private val binding get() = mbinding!!
+    private var _binding : ActivityMainBinding ?= null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mbinding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val datas = mutableListOf<String>()
         for(i in 1..3){

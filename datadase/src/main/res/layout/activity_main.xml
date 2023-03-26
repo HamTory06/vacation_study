@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <data>
+        <variable
+            name="main"
+            type="com.joel.jojo.MainActivity"/>
+    </data>
+
     <ImageView
         android:id="@+id/imageview"
         android:layout_width="wrap_content"
