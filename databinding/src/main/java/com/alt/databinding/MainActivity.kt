@@ -6,11 +6,12 @@ import androidx.databinding.DataBindingUtil
 import com.alt.databinding.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        binding.textView.text = "Hello"
-
+        setContentView(binding.root)
+        binding.button.setOnClickListener {
+            binding.textView.text = "Hello"
+        }
     }
 }

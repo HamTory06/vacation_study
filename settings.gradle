@@ -1,7 +1,7 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        google()
+        google() //ViewModel 사용
         mavenCentral()
     }
 }
@@ -54,3 +54,4 @@ include ':ch17_database'
 include ':thread_looper'
 include ':tablayout'
 include ':databinding'
+include ':viewmodel'

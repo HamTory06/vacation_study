@@ -52,6 +52,7 @@
             <option value="$PROJECT_DIR$/sound_vibration" />
             <option value="$PROJECT_DIR$/tablayout" />
             <option value="$PROJECT_DIR$/thread_looper" />
+            <option value="$PROJECT_DIR$/viewmodel" />
           </set>
         </option>
       </GradleProjectSettings>
