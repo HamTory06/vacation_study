@@ -120,8 +120,7 @@ class MainActivity : AppCompatActivity() {
         if(camerPermission == PackageManager.PERMISSION_GRANTED){
             //카메라 권한이 승인된 경우
             startProcess()
-        }
-        else{
+        } else{
             //카메라 권한이 승인되지 않았을 경우
             requestPermission()
         }

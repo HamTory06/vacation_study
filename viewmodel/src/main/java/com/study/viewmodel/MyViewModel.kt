@@ -1,21 +1,14 @@
 package com.study.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MyViewModel : ViewModel() {
-    private val users: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>().also {
-            loadUsers()
-        }
-    }
-
-    fun getUsers(): LiveData<Int> {
-        return users
-    }
-
-    private fun loadUsers() {
-        // Do an asynchronous operation to fetch users.
+class MyViewModel : ViewModel(){
+    val count = MutableLiveData<Int>().apply { value = 0 }
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("상태","onCleared()")
     }
 }

@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-            if(it.all{ permission -> permission.value }){//permission이 허용된 겅우
-                noti()//알림함수
+            if(it.all{ permission -> permission.value }){ //permission이 허용된 겅우
+                noti() //알림함수
             }
             else{
                 Toast.makeText(this,"permission denied...", Toast.LENGTH_SHORT).show()//Toast메시지로 3초간 "permission denied" 띄움
