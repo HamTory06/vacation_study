@@ -23,27 +23,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private var mbinding : ActivityMainBinding ?= null
-    private val binding get() = mbinding!!
-
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     lateinit var filePath: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        val file: File = File(getExternalFilesDir(null), "text.txt")
-//        val writeStream: OutputStreamWriter = file.writer()
-//        writeStream.write("hello world")
-//        writeStream.flush()
-//        Log.d("상태","${file?.absolutePath}") //파일 위치
-//        //파일 읽기
-//        val readStream: BufferedReader = file.reader().buffered()
-//        readStream.forEachLine {
-//            Log.d("상태","$it")
-//        }
 
         var requestCameraFileLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult())
+            ActivityResultContracts.StartActivityForResult()
+        )
         {
 //            val bitmap = it?.data?.extras?.get("data") as Bitmap
             val option = BitmapFactory.Options()
@@ -53,10 +41,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if(Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED){ //외장 메모리 사용 가능 여부 판단
-            Log.d("상태","ExternalStorageState MOUNTED")
+        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) { //외장 메모리 사용 가능 여부 판단
+            Log.d("상태", "ExternalStorageState MOUNTED")
         } else {
-            Log.d("상태","ExternalStorageState UNMOUNTED")
+            Log.d("상태", "ExternalStorageState UNMOUNTED")
         }
 //        val file: File = File(getExternalFilesDir(null), "test.txt")
 //        val writeStream: OutputStreamWriter = file.writer()
@@ -70,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File ?= getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val file = File.createTempFile(
             "JPEG_${timeStamp}_",
             ".jpg",
@@ -102,23 +90,23 @@ class MainActivity : AppCompatActivity() {
         )
 
         cursor?.let {
-            while (cursor.moveToNext()){
-                Log.d("상태","_id : ${cursor.getLong(0)}, name : ${cursor.getString(1)}")
+            while (cursor.moveToNext()) {
+                Log.d("상태", "_id : ${cursor.getLong(0)}, name : ${cursor.getString(1)}")
             }
         }
 
-            val contentUri: Uri = ContentUris.withAppendedId(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                cursor!!.getLong(0)
-            )
-            val resolver = applicationContext.contentResolver
-            resolver.openInputStream(contentUri).use { stream ->
-                // stream 객체에서 작업 수행
-                val option = BitmapFactory.Options()
-                option.inSampleSize = 10
-                val bitmap = BitmapFactory.decodeStream(stream, null, option)
-                binding.imageview.setImageBitmap(bitmap)
-            }
+        val contentUri: Uri = ContentUris.withAppendedId(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            cursor!!.getLong(0)
+        )
+        val resolver = applicationContext.contentResolver
+        resolver.openInputStream(contentUri).use { stream ->
+            // stream 객체에서 작업 수행
+            val option = BitmapFactory.Options()
+            option.inSampleSize = 10
+            val bitmap = BitmapFactory.decodeStream(stream, null, option)
+            binding.imageview.setImageBitmap(bitmap)
+        }
 
 
 //        val db_1 = openOrCreateDatabase("testdb_1", Context.MODE_PRIVATE, null) //데이터베이스 객체 생성

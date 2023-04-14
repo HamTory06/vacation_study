@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         Log.d("상태","onPause()")
     }
-f
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) { //이 함수가 호출된다는 것은 액티비티가 종료된다는 의미이다, Bundle에 데이터를 담아주면 자동으로 데이터를 파일로 저장해준다
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putString("data1","hello")
